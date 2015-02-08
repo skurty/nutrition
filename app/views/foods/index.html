@@ -1,0 +1,43 @@
+<form class="form-inline" role="form">
+  <div class="row">
+    <div class="col-md-4 col-lg-4"></div>
+    <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4">
+      <input type="text" class="form-control" ng-model="query" placeholder="Recherche">
+    </div>
+    <div class="col-md-2 col-lg-2"></div>
+    <div class="col-xs-6 col-sm-6 col-md-2 col-lg-2">
+      <div style="float: right">
+        <a href="#/foods/add"><button type="button" class="btn btn-default">Nouveau</button></a>
+      </div>
+    </div>
+  </div>
+</form>
+
+ <br />
+
+<table class="table table-striped">
+	<thead>
+		<tr>
+      <td ng-click="changeSorting('brand_name')" class="pointer">Marque <span ng-show="sort == 'brand_name'"><span ng-show="!reverse">↑</span><span ng-show="reverse">↓</span></span></td>
+      <td ng-click="changeSorting('name')" class="pointer">Nom <span ng-show="sort == 'name'"><span ng-show="!reverse">↑</span><span ng-show="reverse">↓</span></span></td>
+      <td ng-click="changeSorting('quantity')" class="pointer">Quantité <span ng-show="sort == 'quantity'"><span ng-show="!reverse">↑</span><span ng-show="reverse">↓</span></span></td>
+      <td ng-click="changeSorting('calories')" class="pointer">Calories <span ng-show="sort == 'calories'"><span ng-show="!reverse">↑</span><span ng-show="reverse">↓</span></span></td>
+      <td ng-click="changeSorting('proteins')" class="pointer">Protéines <span ng-show="sort == 'proteins'"><span ng-show="!reverse">↑</span><span ng-show="reverse">↓</span></span></td>
+      <td ng-click="changeSorting('carbohydrates')" class="pointer">Glucides <span ng-show="sort == 'carbohydrates'"><span ng-show="!reverse">↑</span><span ng-show="reverse">↓</span></span></td>
+      <td ng-click="changeSorting('lipids')" class="pointer">Lipides <span ng-show="sort == 'lipids'"><span ng-show="!reverse">↑</span><span ng-show="reverse">↓</span></span></td>
+		</tr>
+	</thead>
+	<tbody>
+		<tr ng-repeat="f in foods | filter:query | orderBy:sort:reverse">
+			<td>{{f.brand_name}}</td>
+			<td>{{f.name}}</td>
+			<td>{{f.quantity | noZeroDecimal}} {{f.unit}}</td>
+			<td>{{f.calories | noZeroDecimal}}</td>
+			<td>{{f.proteins | noZeroDecimal}}</td>
+			<td>{{f.carbohydrates | noZeroDecimal}}</td>
+			<td>{{f.lipids | noZeroDecimal}}</td>
+			<td style="width: 40px"><a href="#/foods/{{f.id}}/edit"><span class="glyphicon glyphicon-pencil"></span></a></td>
+			<td style="width: 40px"><a href="#" ng-click="delete(f.id, $event)"><span class="glyphicon glyphicon-trash"></span></a></td>
+		</tr>
+	</tbody>
+</table>

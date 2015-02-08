@@ -1,0 +1,183 @@
+<div class="row">
+	<div class="col-sm-4 col-md-4"></div>
+	<div class="col-xs-6 col-sm-4 col-md-4 t-center">
+		<div class="btn-group">
+			<a href="#/{{previousDate | date:'yyyy-MM-dd'}}/diaries" class="btn btn-default">
+				<span class="glyphicon glyphicon-chevron-left"></span>
+			</a>
+			<button type="button" class="btn btn-default">{{date | date:'EEEE dd MMMM'}}</button>
+			<a href="#/{{nextDate | date:'yyyy-MM-dd'}}/diaries" class="btn btn-default">
+				<span class="glyphicon glyphicon-chevron-right"></span>
+			</a>
+		</div>
+	</div>
+	<div class="col-xs-6 col-sm-4 col-md-4">
+		<div class="f-right">
+			<div class="btn-group" id="btn-copy-day">
+				<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+					Copier depuis date <span class="caret"></span>
+				</button>
+				<ul class="dropdown-menu" role="menu">
+					<li ng-repeat="date in lastDates"><a href="#" ng-click="copyDay($event, date)">{{date | date:'EEEE dd MMMM'}}</a></li>
+					<li class="divider"></li>
+					<li><a href="#" datepicker-popup="'yyyy-MM-dd'" ng-model="dtCopyDay" is-open="openDTCopyDay" show-button-bar="false" show-weeks="false" ng-click="showDTCopyDay($event)">Autre</a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div style="display: none;">
+	<datepicker ng-model="dtCopyDay"></datepicker>
+</div>
+
+<!-- Diaries table -->
+<table class="table">
+	<tbody ng-repeat="(mealId, meal) in meals" class="diaries_body">
+		<!-- Diaries header -->
+		<tr ng-switch on="mealId" class="diaries_header">
+			<td>
+				<b>{{meal}}</b>
+			</td>
+			<td>
+				<div class="btn-group">
+					<button type="button" class="btn btn-default btn-sm" ng-click="copyMeal($event, mealId, previousDate)">Copier hier</button>
+				</div>
+				<div class="btn-group">
+					<button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown">
+						Copier depuis date <span class="caret"></span>
+					</button>
+					<ul class="dropdown-menu" role="menu">
+						<li ng-repeat="date in lastDates"><a href="#" ng-click="copyMeal($event, mealId, date)">{{date | date:'EEEE dd MMMM'}}</a></li>
+						<li class="divider"></li>
+						<li><a href="#">Autre</a></li>
+					</ul>
+				</div>
+			</td>
+			<td ng-switch-when="1">Quantité</td>
+			<td ng-switch-when="1">Calories</td>
+			<td ng-switch-when="1">Protéines</td>
+			<td ng-switch-when="1">Glucides</td>
+			<td ng-switch-when="1">Lipides</td>
+		</tr>
+
+		<!-- Diaries lines -->
+		<tr ng-repeat="d in diaries[mealId] track by $index" ng-dblclick="editQuantity[d.id] = true;">
+			<td>{{d.brand_name}}</td>
+			<td>{{d.name}}</td>
+			<td ng-show="!editQuantity[d.id]">{{d.quantity | noZeroDecimal}} {{d.unit}}</td>
+			<td ng-show="editQuantity[d.id]" style="padding: 4px 8px">
+				<div class="form-inline">
+					<input type="text" class="form-control input-sm add_food_quantity" ng-model="d.quantity" ng-enter="saveEdit($event, d.id, mealId)" style="height: 30px">
+					<a href="#" ng-click="saveEdit($event, d.id, mealId)" style="padding-top: 2px"><span class="glyphicon glyphicon-ok"></span></a>
+				</div>
+			</td>
+			<td>{{Math.round(d.calories) | noZeroDecimal}}</td>
+			<td>{{Math.round(d.proteins) | noZeroDecimal}}</td>
+			<td>{{Math.round(d.carbohydrates) | noZeroDecimal}}</td>
+			<td>{{Math.round(d.lipids) | noZeroDecimal}}</td>
+			<td class="diary_action">
+				<div class="btn-group">
+					<a class="dropdown-toggle" data-toggle="dropdown" class="pointer">
+						<span class="glyphicon glyphicon-list"></span>
+					</a>
+					<ul class="dropdown-menu pull-right" role="menu">
+						<li ng-repeat="(mId, mName) in meals" ng-if="mId != mealId" ng-click="copy($event, d.id, mealId, mId)"><a href="#">Copier -> {{mName}}</a></li>
+						<li class="divider"></li>
+						<li ng-repeat="(mId, mName) in meals" ng-if="mId != mealId" ng-click="move($event, d.id, mealId, mId)"><a href="#">Déplacer -> {{mName}}</a></li>
+					</ul>
+				</div>
+			</td>
+			<td class="diary_action"><a href="#" ng-click="showEdit($event, d.id, mealId)"><span class="glyphicon glyphicon-pencil"></span></a></td>
+			<td class="diary_action"><a href="#" ng-click="delete($event, d.id, mealId)"><span class="glyphicon glyphicon-trash"></span></a></td>
+		</tr>
+		<!-- Add manual line -->
+		<tr ng-show="formAddFood[mealId] == 'manual'">
+			<td></td>
+			<td class="manual_diary_line"><input type="text" ng-model="manualDiary[mealId].name" class="form-control input-sm manual_diary_input" ng-enter="addManual($event, mealId)"></td>
+			<td class="manual_diary_line">
+				<!-- <div class="form-inline"> -->
+					<input type="text" ng-model="manualDiary[mealId].quantity" class="form-control input-sm manual_diary_input" style="width: 100px" placeholder="100 g" ng-enter="addManual($event, mealId)">
+				<!-- </div> -->
+			</td>
+			<td class="manual_diary_line"><input type="text" ng-model="manualDiary[mealId].calories" class="form-control input-sm manual_diary_input" style="width: 50px" placeholder="kcal" ng-enter="addManual($event, mealId)"></td>
+			<td class="manual_diary_line"><input type="text" ng-model="manualDiary[mealId].proteins" class="form-control input-sm manual_diary_input" style="width: 50px" placeholder="g" ng-enter="addManual($event, mealId)"></td>
+			<td class="manual_diary_line"><input type="text" ng-model="manualDiary[mealId].carbohydrates" class="form-control input-sm manual_diary_input" style="width: 50px" placeholder="g" ng-enter="addManual($event, mealId)"></td>
+			<td class="manual_diary_line"><input type="text" ng-model="manualDiary[mealId].lipids" class="form-control input-sm manual_diary_input" style="width: 50px" placeholder="g" ng-enter="addManual($event, mealId)"></td>
+			<td class="diary_action">
+				<a href="#" style="padding-top: 2px" ng-click="addManual($event, mealId)"><span class="glyphicon glyphicon-ok"></span></a>
+			</td>
+			<td colspan="2"></td>
+		</tr>
+		<!-- Total meal -->
+		<tr class="line_total">
+			<td class="line_total_td">
+				<div class="btn-group btn-group-sm">
+					<button type="button" class="btn btn-default ng-class: {active: formAddFood[mealId] == 'food'}" ng-click="formAddFood[mealId] = 'food'" title="Aliments">
+						<span class="glyphicon glyphicon-list"></span>
+					</button>
+					<button type="button" class="btn btn-default ng-class: {active: formAddFood[mealId] == 'recipe'}" ng-click="formAddFood[mealId] = 'recipe'" title="Recettes">
+						<span class="glyphicon glyphicon-cutlery"></span>
+					</button>
+					<button type="button" class="btn btn-default ng-class: {active: formAddFood[mealId] == 'manual'}" ng-click="formAddFood[mealId] = 'manual'" title="Ajout manuel">
+						<span class="glyphicon glyphicon-wrench"></span>
+					</button>
+				</div>
+			</td>
+			<td>
+				<!-- Foods search and recipes list -->
+                <input type="text" class="form-control input-sm" ng-model="food[mealId]" typeahead="food as food.name for food in foodsList | filter:$viewValue" ng-show="formAddFood[mealId] == 'food'" placeholder="Aliment">
+
+				<input type="text" class="form-control input-sm" ng-model="recipe[mealId]" typeahead="recipe as recipe.name for recipe in recipes | filter:$viewValue" ng-show="formAddFood[mealId] == 'recipe'" placeholder="Recette">
+			</td>
+			<td>
+				<div class="form-inline" ng-show="formAddFood[mealId] == 'food'">
+					<input type="text" class="form-control input-sm add_food_quantity" ng-model="quantity[mealId]" ng-enter="addFood($event, mealId)" placeholder="100 g">
+					<a href="#" ng-click="addFood($event, mealId)"><span class="glyphicon glyphicon-ok"></span></a>
+				</div>
+				<div class="form-inline" ng-show="formAddFood[mealId] == 'recipe'">
+					<input type="text" class="form-control input-sm add_food_quantity" ng-model="quantity[mealId]" ng-enter="addRecipe($event, mealId)" placeholder="1 part">
+					<a href="#" ng-click="addRecipe($event, mealId)"><span class="glyphicon glyphicon-ok"></span></a>
+				</div>
+			</td>
+			<td>{{totalMeals[mealId].calories | noZeroDecimal}}</td>
+			<td>{{totalMeals[mealId].proteins | noZeroDecimal}}</td>
+			<td>{{totalMeals[mealId].carbohydrates | noZeroDecimal}}</td>
+			<td>{{totalMeals[mealId].lipids | noZeroDecimal}}</td>
+			<td></td>
+			<td></td>
+			<td></td>
+		</tr>
+		
+	</tbody>
+	<!-- Total -->
+	<tbody class="diaries_body">
+		<tr id="diaries_total">
+			<td colspan="2"></td>
+			<td>Total</td>
+			<td>{{total.calories}}</td>
+			<td>{{total.proteins}}</td>
+			<td>{{total.carbohydrates}}</td>
+			<td>{{total.lipids}}</td>
+			<td colspan="3"></td>
+		</tr>
+		<tr>
+			<td colspan="2"></td>
+			<td>Objectifs</td>
+			<td>{{goal.calories | noZeroDecimal}}</td>
+			<td>{{goal.proteins | noZeroDecimal}}</td>
+			<td>{{goal.carbohydrates | noZeroDecimal}}</td>
+			<td>{{goal.lipids | noZeroDecimal}}</td>
+			<td colspan="3"></td>
+		</tr>
+		<tr>
+			<td colspan="2"></td>
+			<td>Restant</td>
+			<td>{{goal.calories - total.calories}}</td>
+			<td>{{goal.proteins - total.proteins}}</td>
+			<td>{{goal.carbohydrates - total.carbohydrates}}</td>
+			<td>{{goal.lipids - total.lipids}}</td>
+			<td colspan="3"></td>
+		</tr>
+	</tbody>
+</table>

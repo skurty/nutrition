@@ -1,0 +1,58 @@
+<form class="form-inline" role="form">
+	<div class="row">
+		<div class="col-xs-8 col-sm-6 col-md-4 col-lg-4">
+			<div class="input-group">
+				<input type="text" class="form-control" id="name" ng-model="recipe.name" placeholder="Nom">
+				<span class="input-group-btn">
+				<button class="btn btn-default" type="submit" ng-click="saveName()">OK</button>
+				</span>
+			</div>
+		</div>
+	</div>
+</form>
+<br />
+
+<table class="table table-striped" ng-show="nameSaved">
+	<thead>
+		<tr>
+			<td>Marque</td>
+			<td>Nom</td>
+			<td>Quantité</td>
+			<td>Calories</td>
+			<td>Protéines</td>
+			<td>Glucides</td>
+			<td>Lipides</td>
+		</tr>
+	</thead>
+	<tbody>
+		<tr ng-repeat="fr in recipe.foods">
+			<td>{{fr.brand_name}}</td>
+			<td>{{fr.name}}</td>
+			<td>{{fr.quantity}} {{fr.Food.unit}}</td>
+			<td>{{fr.calories | noZeroDecimal}}</td>
+			<td>{{fr.proteins | noZeroDecimal}}</td>
+			<td>{{fr.carbohydrates | noZeroDecimal}}</td>
+			<td>{{fr.lipids | noZeroDecimal}}</td>
+			<td style="width: 40px"><a href="#"><span class="glyphicon glyphicon-pencil"></span></td>
+			<td style="width: 40px"><a href="#" ng-click="delete($event, fr.id)"><span class="glyphicon glyphicon-trash"></span></td>
+		</tr>
+		<tr>
+			<td></td>
+			<td>
+				<input type="text" class="form-control input-sm" ng-model="food" typeahead="food as food.name for food in foodsList | filter:$viewValue" placeholder="Aliment">
+			</td>
+			<td>
+				<div class="form-inline">
+					<input type="text" class="form-control input-sm" ng-model="quantity" ng-enter="addEntry($event, food, quantity)" placeholder="100 g" style="width: 100px"> <a href="#" ng-click="addEntry($event, food, quantity)"><span class="glyphicon glyphicon-ok"></span></a>
+				</div>
+			</td>
+			<td>{{recipe.calories}}</td>
+			<td>{{recipe.proteins}}</td>
+			<td>{{recipe.carbohydrates}}</td>
+			<td>{{recipe.lipids}}</td>
+			<td></td>
+			<td></td>
+		</tr>
+	</tbody>
+</table>
+<a class="btn btn-default" href="#/recipes">Retour</a>

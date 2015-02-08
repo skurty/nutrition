@@ -1,0 +1,115 @@
+@media screen and (max-width: 640px) {
+    .container {padding: 0;}
+    .navbar {padding: 0 15px;}
+}
+
+.table > tbody + tbody.diaries_body {border-top: none;}
+
+.table > tbody > tr.diaries_header > td {padding-top: 40px; vertical-align: bottom; border-top: none;}
+
+.table > tbody > tr.diaries_header_mobile > td {border-top: none;}
+
+.table > tbody > tr#diaries_total > td {padding-top: 40px; vertical-align: bottom; border-top: none;}
+
+.navbar-default {
+    background-color: #36A9E1;
+    border-color: none;
+}
+.navbar-default .navbar-brand {
+    color: #ffffff;
+    height: auto;
+}
+.navbar-default .navbar-brand:hover,
+.navbar-default .navbar-brand:focus {
+    color: #d2e9f4;
+}
+.navbar-default .navbar-nav > li > a {
+    color: #ffffff;
+}
+.navbar-default .navbar-nav > li > a:hover,
+.navbar-default .navbar-nav > li > a:focus {
+    color: #d2e9f4;
+}
+.navbar-default .navbar-nav > .active > a,
+.navbar-default .navbar-nav > .active > a:hover,
+.navbar-default .navbar-nav > .active > a:focus {
+    color: #d2e9f4;
+    background-color: #1e8fc6;
+}
+.navbar-default .navbar-nav > .open > a,
+.navbar-default .navbar-nav > .open > a:hover,
+.navbar-default .navbar-nav > .open > a:focus {
+    color: #d2e9f4;
+    background-color: #1e8fc6;
+}
+.navbar-default .navbar-nav > .dropdown > a .caret {
+    border-top-color: #ffffff;
+    border-bottom-color: #ffffff;
+}
+.navbar-default .navbar-nav > .dropdown > a:hover .caret,
+.navbar-default .navbar-nav > .dropdown > a:focus .caret {
+    border-top-color: #d2e9f4;
+    border-bottom-color: #d2e9f4;
+}
+.navbar-default .navbar-nav > .dropdown .dropdown-menu .divider {
+    background-color: #ffffff;
+}
+.navbar-default .navbar-nav > .open > a .caret,
+.navbar-default .navbar-nav > .open > a:hover .caret,
+.navbar-default .navbar-nav > .open > a:focus .caret {
+    border-top-color: #d2e9f4;
+    border-bottom-color: #d2e9f4;
+}
+.navbar-default .navbar-toggle {
+    border-color: #1e8fc6;
+}
+.navbar-default .navbar-toggle:hover,
+.navbar-default .navbar-toggle:focus {
+    background-color: #1e8fc6;
+}
+.navbar-default .navbar-toggle .icon-bar {
+    background-color: #ffffff;
+}
+.navbar-default .navbar-collapse,
+.navbar-default .navbar-form {
+    border-color: #ffffff;
+}
+@media (max-width: 767px) {
+    .navbar-default .navbar-nav .open .dropdown-menu > li > a {
+        color: #ffffff;
+    }
+    .navbar-default .navbar-nav .open .dropdown-menu > li > a:hover,
+    .navbar-default .navbar-nav .open .dropdown-menu > li > a:focus {
+        color: #000040;
+    }
+}
+
+.navbar-nav > li > a {padding-top: 10px !important; padding-bottom: 10px !important;}
+.navbar {min-height: 40px !important}
+
+.navbar-brand {line-height: 10px;}
+
+.delete_mobile {width: 100px; padding: 0; background: red; color: #fff;}
+
+.diary_action {width: 40px;}
+
+.brand_name_mobile {font-size: 12px;}
+
+.line_total_td {padding-left: 10px;}
+
+.add_food_select {max-width: 95%;}
+.add_food_quantity {max-width: 80px;}
+
+.t-left {text-align: left;}
+.t-center {text-align: center;}
+.t-right {text-align: right;}
+.f-right {float: right;}
+
+.pointer {cursor: pointer;}
+
+.clear {clear: both;}
+
+.table > tbody > tr > td.manual_diary_line {padding: 4px 8px;}
+.table > tbody > tr > td.manual_diary_line .manual_diary_input {height: 30px;}
+
+.form-horizontal .control-label.t-left {text-align: left;}

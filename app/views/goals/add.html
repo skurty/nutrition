@@ -1,0 +1,43 @@
+<form class="form-horizontal" role="form" ng-submit="create()">
+  <div class="row">
+    <div class="col-sm-1 col-md-2 col-lg-3"></div>
+    <div class="col-xs-12 col-sm-10 col-md-8 col-lg-4">
+    	<div class="form-group" ng-class="{'has-error': datepickerForm.date.$invalid}">
+    		<label for="date" class="col-xs-2 col-sm-4 control-label t-left">Date</label>
+    		<div class="col-xs-8 col-sm-4 col-md-4">
+    			<input type="text" class="form-control" id="date" ng-model="goal.date" data-date-format="yyyy-MM-dd" data-min-date="today" data-autoclose="true" bs-datepicker>
+    		</div>
+    	</div>
+    	<div class="form-group">
+    		<label for="calories" class="col-xs-2 col-sm-4 control-label t-left">Calories</label>
+    		<div class="col-xs-8 col-sm-8">
+    			<input type="text" class="form-control" id="calories" ng-model="goal.calories" style="width: 100px">
+    		</div>
+    	</div>
+    	<div class="form-group">
+    		<label for="proteins" class="col-xs-2 col-sm-4 control-label t-left">Protéines</label>
+    		<div class="col-xs-8 col-sm-8">
+    			<input type="text" class="form-control" id="proteins" ng-model="goal.proteins" style="width: 100px">
+    		</div>
+    	</div>
+    	<div class="form-group">
+    		<label for="carbohydrates" class="col-xs-2 col-sm-4 control-label t-left">Glucides</label>
+    		<div class="col-xs-8 col-sm-8">
+    			<input type="text" class="form-control" id="carbohydrates" ng-model="goal.carbohydrates" style="width: 100px">
+    		</div>
+    	</div>
+    	<div class="form-group">
+    		<label for="lipids" class="col-xs-2 col-sm-4 control-label t-left">Lipides</label>
+    		<div class="col-xs-8 col-sm-8">
+    			<input type="text" class="form-control" id="lipids" ng-model="goal.lipids" style="width: 100px">
+    		</div>
+    	</div>
+    	<div class="form-group">
+    		<div class="col-sm-offset-2 col-sm-10">
+    			<button type="submit" class="btn btn-default">Sauvegarder</button>
+    		</div>
+    	</div>
+    </div>
+  </div>
+</form>
+<a class="btn btn-default" href="#/goals">Retour</a>

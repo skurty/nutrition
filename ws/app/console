@@ -1,0 +1,26 @@
+#!/usr/bin/env php
+<?php
+
+set_time_limit(0);
+
+require_once __DIR__.'/../app/bootstrap.php';
+
+$app = require __DIR__.'/../app/app.php';
+
+require __DIR__.'/../app/config/prod.php';
+
+use Knp\Provider\ConsoleServiceProvider;
+
+$app->register(new ConsoleServiceProvider(), array(
+    'console.name'              => 'NutritionApplication',
+    'console.version'           => '1.0.0',
+    'console.project_directory' => __DIR__.'/..'
+));
+
+use Skurty\NutritionBundle\Console\Command\CalorieCommand;
+
+$application = $app['console'];
+$application->add(new CalorieCommand());
+$application->run();
+
+?>
