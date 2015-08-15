@@ -93,10 +93,10 @@ angular.module('nutritionApp.diariesControllers', []).
             $scope.editQuantity[diary] = false;
           });
         }
-      })
+      });
 
       return false;
-    }
+    };
 
     $scope.delete = function(event, diary, meal) {
       if (event) event.preventDefault();
@@ -117,27 +117,7 @@ angular.module('nutritionApp.diariesControllers', []).
       });
 
       return false;
-    }
-
-    $scope.deleteMobile = function(diary, meal) {
-      $scope.deleteMobileButtons[diary] = false;
-
-      // Diary.delete({id: diary}, function(data) {
-      //   if (data) {
-      //     angular.forEach($scope.diaries[meal], function(d, k) {
-      //       if (d.Diary.id == diary) {
-      //         $scope.diaries[meal].splice(k, 1);
-
-      //         $scope.updateTotalMeals(meal, d.Diary, false);
-
-      //         $scope.updateTotal(d.Diary, false);
-      //       }
-      //     });
-      //   } else {
-      //     console.log('Delete error diary ' + diary);
-      //   }
-      // });
-    }
+    };
 
     $scope.copyMeal = function(event, meal, date) {
       if (event) event.preventDefault();
@@ -156,7 +136,7 @@ angular.module('nutritionApp.diariesControllers', []).
       }
 
       return false;
-    }
+    };
 
     $scope.copyDay = function(event, date) {
       if (event) event.preventDefault();
@@ -168,7 +148,17 @@ angular.module('nutritionApp.diariesControllers', []).
       });
 
       return false;
-    }
+    };
+
+    $scope.changeForm = function(type, mealId) {
+      $scope.formAddFood[mealId] = type;
+      $scope.focus = type + mealId;
+      $scope.quantity[mealId] = null;
+
+      $scope.food[mealId] = null;
+      $scope.recipe[mealId] = null;
+      $scope.manualDiary[mealId] = null;
+    };
 
     $scope.addFood = function(event, meal) {
       if (event) event.preventDefault();
@@ -185,11 +175,12 @@ angular.module('nutritionApp.diariesControllers', []).
           $scope.food[meal]     = '';
           $scope.quantity[meal] = '';
           $scope.lockAddFood = false;
+          $scope.focus = 'food' + meal;
         });
       }
 
       return false;
-    }
+    };
 
     $scope.addRecipe = function(event, meal) {
       if (event) event.preventDefault();
@@ -205,11 +196,12 @@ angular.module('nutritionApp.diariesControllers', []).
           $scope.quantity[meal] = '';
 
           $scope.formAddFood[meal] = 'food';
+          $scope.focus = 'food' + meal;
         });
       }
 
       return false;
-    }
+    };
 
     $scope.addManual = function(event, meal) {
       if (event) event.preventDefault();
@@ -236,7 +228,7 @@ angular.module('nutritionApp.diariesControllers', []).
       }
 
       return false;
-    }
+    };
 
     $scope.copy = function(event, diary, from, to) {
       if (event) event.preventDefault();
@@ -256,7 +248,7 @@ angular.module('nutritionApp.diariesControllers', []).
       });
 
       return false;
-    }
+    };
 
     $scope.move = function(event, diary, from, to) {
       if (event) event.preventDefault();
@@ -278,7 +270,7 @@ angular.module('nutritionApp.diariesControllers', []).
       });
 
       return false;
-    }
+    };
 
     $scope.updateTotalMeals = function(meal, data, addition) {
       if (addition === undefined) addition = true;
@@ -294,7 +286,7 @@ angular.module('nutritionApp.diariesControllers', []).
         $scope.totalMeals[meal].carbohydrates = Math.round(parseFloat($scope.totalMeals[meal].carbohydrates) - parseFloat(data.carbohydrates));
         $scope.totalMeals[meal].lipids        = Math.round(parseFloat($scope.totalMeals[meal].lipids) - parseFloat(data.lipids));
       }
-    }
+    };
 
     $scope.updateTotal = function(data, addition) {
       if (addition === undefined) addition = true;
@@ -310,7 +302,7 @@ angular.module('nutritionApp.diariesControllers', []).
         $scope.total.carbohydrates = Math.round(parseFloat($scope.total.carbohydrates) - parseFloat(data.carbohydrates));
         $scope.total.lipids        = Math.round(parseFloat($scope.total.lipids) - parseFloat(data.lipids));
       }
-    }
+    };
 
     // Datepickers
     $scope.openDTCopyDay = false;
@@ -328,7 +320,7 @@ angular.module('nutritionApp.diariesControllers', []).
       }
 
       return false;
-    }
+    };
 
     $scope.$watch('dtCopyDay', function() {
       if ($scope.dtCopyDay != undefined) {

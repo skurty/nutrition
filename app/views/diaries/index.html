@@ -94,7 +94,7 @@
 		<!-- Add manual line -->
 		<tr ng-show="formAddFood[mealId] == 'manual'">
 			<td></td>
-			<td class="manual_diary_line"><input type="text" ng-model="manualDiary[mealId].name" class="form-control input-sm manual_diary_input" ng-enter="addManual($event, mealId)"></td>
+			<td class="manual_diary_line"><input type="text" ng-model="manualDiary[mealId].name" class="form-control input-sm manual_diary_input" ng-enter="addManual($event, mealId)" placeholder="Plat" show-focus="focus == ('manual' + mealId)"></td>
 			<td class="manual_diary_line">
 				<!-- <div class="form-inline"> -->
 					<input type="text" ng-model="manualDiary[mealId].quantity" class="form-control input-sm manual_diary_input" style="width: 100px" placeholder="100 g" ng-enter="addManual($event, mealId)">
@@ -113,30 +113,30 @@
 		<tr class="line_total">
 			<td class="line_total_td">
 				<div class="btn-group btn-group-sm">
-					<button type="button" class="btn btn-default ng-class: {active: formAddFood[mealId] == 'food'}" ng-click="formAddFood[mealId] = 'food'" title="Aliments">
+					<button type="button" class="btn btn-default ng-class: {active: formAddFood[mealId] == 'food'}" ng-click="changeForm('food', mealId)" title="Aliments">
 						<span class="glyphicon glyphicon-list"></span>
 					</button>
-					<button type="button" class="btn btn-default ng-class: {active: formAddFood[mealId] == 'recipe'}" ng-click="formAddFood[mealId] = 'recipe'" title="Recettes">
+					<button type="button" class="btn btn-default ng-class: {active: formAddFood[mealId] == 'recipe'}" ng-click="changeForm('recipe', mealId)" title="Recettes">
 						<span class="glyphicon glyphicon-cutlery"></span>
 					</button>
-					<button type="button" class="btn btn-default ng-class: {active: formAddFood[mealId] == 'manual'}" ng-click="formAddFood[mealId] = 'manual'" title="Ajout manuel">
+					<button type="button" class="btn btn-default ng-class: {active: formAddFood[mealId] == 'manual'}" ng-click="changeForm('manual', mealId)" title="Ajout manuel">
 						<span class="glyphicon glyphicon-wrench"></span>
 					</button>
 				</div>
 			</td>
 			<td>
 				<!-- Foods search and recipes list -->
-                <input type="text" class="form-control input-sm" ng-model="food[mealId]" typeahead="food as food.name for food in foodsList | filter:$viewValue" ng-show="formAddFood[mealId] == 'food'" placeholder="Aliment">
+                <input type="text" class="form-control input-sm" ng-model="food[mealId]" typeahead="food as food.name for food in foodsList | filter:$viewValue" ng-show="formAddFood[mealId] == 'food'" placeholder="Aliment" typeahead-on-select="focus = 'foodQuantity' + mealId" show-focus="focus == ('food' + mealId)">
 
-				<input type="text" class="form-control input-sm" ng-model="recipe[mealId]" typeahead="recipe as recipe.name for recipe in recipes | filter:$viewValue" ng-show="formAddFood[mealId] == 'recipe'" placeholder="Recette">
+				<input type="text" class="form-control input-sm" ng-model="recipe[mealId]" typeahead="recipe as recipe.name for recipe in recipes | filter:$viewValue" ng-show="formAddFood[mealId] == 'recipe'" placeholder="Recette" typeahead-on-select="focus = 'recipeQuantity' + mealId" show-focus="focus == ('recipe' + mealId)">
 			</td>
 			<td>
 				<div class="form-inline" ng-show="formAddFood[mealId] == 'food'">
-					<input type="text" class="form-control input-sm add_food_quantity" ng-model="quantity[mealId]" ng-enter="addFood($event, mealId)" placeholder="100 g">
+					<input type="text" class="form-control input-sm add_food_quantity" ng-model="quantity[mealId]" ng-enter="addFood($event, mealId)" placeholder="100 g" show-focus="focus == ('foodQuantity' + mealId)">
 					<a href="#" ng-click="addFood($event, mealId)"><span class="glyphicon glyphicon-ok"></span></a>
 				</div>
 				<div class="form-inline" ng-show="formAddFood[mealId] == 'recipe'">
-					<input type="text" class="form-control input-sm add_food_quantity" ng-model="quantity[mealId]" ng-enter="addRecipe($event, mealId)" placeholder="1 part">
+					<input type="text" class="form-control input-sm add_food_quantity" ng-model="quantity[mealId]" ng-enter="addRecipe($event, mealId)" placeholder="1 part" show-focus="focus == ('recipeQuantity' + mealId)">
 					<a href="#" ng-click="addRecipe($event, mealId)"><span class="glyphicon glyphicon-ok"></span></a>
 				</div>
 			</td>

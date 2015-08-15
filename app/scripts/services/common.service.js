@@ -4,8 +4,7 @@ angular.module('nutritionApp.commonServices', ['ngResource']).
   // value('version', '0.1').
   factory('WS', function() {
     return {
-      // url: '/NutritionWS'
-      url: '/perso/ws'
+      url: '/ws'
     };
   }).
   factory('String', function() {
