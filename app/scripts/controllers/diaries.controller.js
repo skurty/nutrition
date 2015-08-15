@@ -160,6 +160,14 @@ angular.module('nutritionApp.diariesControllers', []).
       $scope.manualDiary[mealId] = null;
     };
 
+    $scope.onSelectFood = function(meal) {
+      $scope.focus = 'foodQuantity' + meal;
+    };
+
+    $scope.onSelectRecipe = function(meal) {
+      $scope.focus = 'recipeQuantity' + meal;
+    };
+
     $scope.addFood = function(event, meal) {
       if (event) event.preventDefault();
 

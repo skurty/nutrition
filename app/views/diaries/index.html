@@ -65,7 +65,7 @@
 		<tr ng-repeat="d in diaries[mealId] track by $index" ng-dblclick="editQuantity[d.id] = true;">
 			<td>{{d.brand_name}}</td>
 			<td>{{d.name}}</td>
-			<td ng-show="!editQuantity[d.id]">{{d.quantity | noZeroDecimal}} {{d.unit}}<span ng-if="d.quantity > 1 && ['g', 'ml'].indexOf(d.unit) == -1">s</span></td>
+			<td ng-show="!editQuantity[d.id]">{{d.quantity | noZeroDecimal}} {{d.unit}}<span ng-if="d.quantity > 1 && d.unit !== null && ['g', 'ml'].indexOf(d.unit) == -1">s</span></td>
 			<td ng-show="editQuantity[d.id]" style="padding: 4px 8px">
 				<div class="form-inline">
 					<input type="text" class="form-control input-sm add_food_quantity" ng-model="d.quantity" ng-enter="saveEdit($event, d.id, mealId)" style="height: 30px">
@@ -126,9 +126,9 @@
 			</td>
 			<td>
 				<!-- Foods search and recipes list -->
-                <input type="text" class="form-control input-sm" ng-model="food[mealId]" typeahead="food as food.name for food in foodsList | filter:$viewValue" ng-show="formAddFood[mealId] == 'food'" placeholder="Aliment" typeahead-on-select="focus = 'foodQuantity' + mealId" show-focus="focus == ('food' + mealId)">
+                <input type="text" class="form-control input-sm" ng-model="food[mealId]" typeahead="food as food.name for food in foodsList | filter:$viewValue" ng-show="formAddFood[mealId] == 'food'" placeholder="Aliment" typeahead-on-select="onSelectFood(mealId)" show-focus="focus == ('food' + mealId)">
 
-				<input type="text" class="form-control input-sm" ng-model="recipe[mealId]" typeahead="recipe as recipe.name for recipe in recipes | filter:$viewValue" ng-show="formAddFood[mealId] == 'recipe'" placeholder="Recette" typeahead-on-select="focus = 'recipeQuantity' + mealId" show-focus="focus == ('recipe' + mealId)">
+				<input type="text" class="form-control input-sm" ng-model="recipe[mealId]" typeahead="recipe as recipe.name for recipe in recipes | filter:$viewValue" ng-show="formAddFood[mealId] == 'recipe'" placeholder="Recette" typeahead-on-select="onSelectRecipe(mealId)" show-focus="focus == ('recipe' + mealId)">
 			</td>
 			<td>
 				<div class="form-inline" ng-show="formAddFood[mealId] == 'food'">
