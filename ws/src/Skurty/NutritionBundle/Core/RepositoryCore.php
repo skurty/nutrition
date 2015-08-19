@@ -52,7 +52,7 @@ class RepositoryCore {
 
     public function findCountByid($id)
     {
-        $sql = 'SELECT count(*) as nb FROM brands WHERE id = ? AND status = 1';
+        $sql = 'SELECT count(*) as nb FROM ' . $this->table . ' WHERE id = ? AND status = 1';
 
         $res = $this->db->fetchAssoc($sql, array((int)$id));
 
@@ -61,23 +61,10 @@ class RepositoryCore {
 
     public function findCountByName($name, $id = null)
     {
-        $sql = 'SELECT count(*) as nb FROM brands WHERE name = ? AND status = 1';
+        $sql = 'SELECT count(*) as nb FROM ' . $this->table . ' WHERE name = ? AND status = 1';
 
         $res = $this->db->fetchAssoc($sql, array($name));
 
         return $res['nb'];
     }
 }
-
-// $sql = 'SELECT count(*) as nb FROM brands WHERE name = ? AND status = 1';
-
-// $params = array($name);
-
-// if (!is_null($id)) {
-//     $sql .= ' AND id != ?';
-//     $params[] = (int)$id;
-// }
-
-// echo $sql;
-
-// // $res = $this->db->fetchAssoc($sql, $params);

@@ -65,7 +65,7 @@
 		<tr ng-repeat="d in diaries[mealId] track by $index" ng-dblclick="editQuantity[d.id] = true;">
 			<td>{{d.brand_name}}</td>
 			<td>{{d.name}}</td>
-			<td ng-show="!editQuantity[d.id]">{{d.quantity | noZeroDecimal}} {{d.unit}}<span ng-if="d.quantity > 1 && d.unit !== null && ['g', 'ml'].indexOf(d.unit) == -1">s</span></td>
+			<td ng-show="!editQuantity[d.id]">{{d.quantity | noZeroDecimal}} {{d.unit}}<span ng-if="d.unit != '' && d.quantity > 1 && d.unit !== null && ['g', 'ml'].indexOf(d.unit) == -1">s</span></td>
 			<td ng-show="editQuantity[d.id]" style="padding: 4px 8px">
 				<div class="form-inline">
 					<input type="text" class="form-control input-sm add_food_quantity" ng-model="d.quantity" ng-enter="saveEdit($event, d.id, mealId)" style="height: 30px">

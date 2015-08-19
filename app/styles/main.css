@@ -113,3 +113,5 @@
 .table > tbody > tr > td.manual_diary_line .manual_diary_input {height: 30px;}
 
 .form-horizontal .control-label.t-left {text-align: left;}
+
+a.dropdown-toggle {cursor: pointer;}

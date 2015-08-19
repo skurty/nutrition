@@ -73,7 +73,7 @@ class ControllerCore implements ControllerProviderInterface {
         $repository = new $this->repository($app['db']);
 
         $res = null;
-
+        
         if ($repository->findCountById($id) == 1) {
             $res = $repository->delete($id);
         } else {
