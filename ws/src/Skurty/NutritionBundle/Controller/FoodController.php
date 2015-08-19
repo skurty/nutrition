@@ -60,6 +60,16 @@ class FoodController extends ControllerCore
 
         $item = $repository->findByIdMin($id);
 
+        if (!empty($item)) {
+            $item['brand_id'] = (int)$item['brand_id'];
+            $item['calories'] = (float)$item['calories'];
+            $item['carbohydrates'] = (float)$item['carbohydrates'];
+            $item['count'] = (int)$item['count'];
+            $item['lipids'] = (float)$item['lipids'];
+            $item['proteins'] = (float)$item['proteins'];
+            $item['quantity'] = (int)$item['quantity'];
+        }
+
         return $app->json($item);
     }
 
