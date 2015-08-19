@@ -1,5 +1,5 @@
-<div google-chart chart="calories" style="{{calories.cssStyle}}"></div>
+<div google-chart chart="calories" style="{{calories.cssStyle}}" ng-if="calories.data.rows"></div>
 
-<div google-chart chart="macronutrients" style="{{macronutrients.cssStyle}}"></div>
+<div google-chart chart="macronutrients" style="{{macronutrients.cssStyle}}" ng-if="macronutrients.data.rows"></div>
 
-<div google-chart chart="weights" style="{{weights.cssStyle}}"></div>
+<div google-chart chart="weights" style="{{weights.cssStyle}}" ng-if="weights.data.rows"></div>

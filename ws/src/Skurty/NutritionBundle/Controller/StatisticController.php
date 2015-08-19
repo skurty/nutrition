@@ -12,6 +12,17 @@ class StatisticController extends ControllerCore
 {
     public function indexParamsAction(Application $app, Request $request)
     {
+        // Update calories
+        $repository = new \Skurty\NutritionBundle\Repository\CalorieRepository($app['db']);
+
+        $startDate = $repository->getLastDate();
+
+        $endDate = date('Y-m-d', strtotime('-1 day'));
+
+        if ($startDate <= $endDate) {
+            $repository->update($startDate, $endDate);
+        }
+
         if (!is_null($request->query->get('start_date'))) {
             $startDate = $request->query->get('start_date');
         } else {
@@ -25,9 +36,9 @@ class StatisticController extends ControllerCore
         }
 
         // Get calories
-        $calorieRepository = new $this->repository($app['db']);
+        $repository = new $this->repository($app['db']);
 
-        $stats = $calorieRepository->findAllByDate($startDate, $endDate);
+        $stats = $repository->findAllByDate($startDate, $endDate);
 
         $dates = $calories = $proteins = $carbohydrates = $lipids = array();
         foreach ($stats['calories'] as $c) {
