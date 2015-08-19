@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('nutritionApp.foodsControllers', []).
-  controller('FoodListCtrl', ['$scope', 'Food', function($scope, Food) {
+  controller('FoodListCtrl', ['$scope', 'Food', 'String', function($scope, Food, String) {
     Food.list(function(data) {
       $scope.foods = data;
     });
@@ -32,6 +32,12 @@ angular.module('nutritionApp.foodsControllers', []).
         $scope.sort    = column;
         $scope.reverse = false;
       }
+    };
+
+    $scope.autocompleteComparator = function(actual, expected) {
+      actual = String.removeAccents(actual).toLowerCase();
+      expected = String.removeAccents(expected).toLowerCase();
+      return actual.indexOf(expected) > -1;
     };
   }]).
   controller('FoodAddCtrl', ['$scope', '$location', 'Brand', 'Food', 'String', function($scope, $location, Brand, Food, String) {
@@ -103,6 +109,7 @@ angular.module('nutritionApp.foodsControllers', []).
     });
 
     Food.get({id: $routeParams.id}, function(data) {
+      data.brand_id = parseInt(data.brand_id);
       $scope.food = data;
     });
 

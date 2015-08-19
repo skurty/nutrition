@@ -126,7 +126,7 @@
 			</td>
 			<td>
 				<!-- Foods search and recipes list -->
-                <input type="text" class="form-control input-sm" ng-model="food[mealId]" typeahead="food as food.name for food in foodsList | filter:$viewValue" ng-show="formAddFood[mealId] == 'food'" placeholder="Aliment" typeahead-on-select="onSelectFood(mealId)" show-focus="focus == ('food' + mealId)">
+                <input type="text" class="form-control input-sm" ng-model="food[mealId]" typeahead="food as food.name for food in foodsList | filter:{name: $viewValue}:autocompleteComparator" ng-show="formAddFood[mealId] == 'food'" placeholder="Aliment" typeahead-on-select="onSelectFood(mealId)" show-focus="focus == ('food' + mealId)">
 
 				<input type="text" class="form-control input-sm" ng-model="recipe[mealId]" typeahead="recipe as recipe.name for recipe in recipes | filter:$viewValue" ng-show="formAddFood[mealId] == 'recipe'" placeholder="Recette" typeahead-on-select="onSelectRecipe(mealId)" show-focus="focus == ('recipe' + mealId)">
 			</td>

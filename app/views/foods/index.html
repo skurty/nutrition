@@ -28,7 +28,7 @@
 		</tr>
 	</thead>
 	<tbody>
-		<tr ng-repeat="f in foods | filter:query | orderBy:sort:reverse">
+		<tr ng-repeat="f in foods | filter:{name: query}:autocompleteComparator | orderBy:sort:reverse">
 			<td>{{f.brand_name}}</td>
 			<td>{{f.name}}</td>
 			<td>{{f.quantity | noZeroDecimal}} {{f.unit}}</td>
