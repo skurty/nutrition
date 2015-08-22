@@ -5,3 +5,4 @@ dist
 app/lib
 .idea/
 sftp-config.json
+ws/app/config/prod.php

@@ -20,7 +20,13 @@
 				<ul class="dropdown-menu" role="menu">
 					<li ng-repeat="date in lastDates"><a href="#" ng-click="copyDay($event, date)">{{date | date:'EEEE dd MMMM'}}</a></li>
 					<li class="divider"></li>
-					<li><a href="#" datepicker-popup="'yyyy-MM-dd'" ng-model="dtCopyDay" is-open="openDTCopyDay" show-button-bar="false" show-weeks="false" ng-click="showDTCopyDay($event)">Autre</a></li>
+					<li><a href="#"
+						   datepicker-popup="'yyyy-MM-dd'"
+						   ng-model="dtCopyDay"
+						   is-open="openDTCopyDay"
+						   show-button-bar="false"
+						   show-weeks="false"
+						   ng-click="showDTCopyDay($event)">Autre</a></li>
 				</ul>
 			</div>
 		</div>
