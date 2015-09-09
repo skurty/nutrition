@@ -21,12 +21,18 @@
 			<tr ng-repeat="fr in recipe.foods">
 				<td>{{fr.brand}}</td>
 				<td>{{fr.name}}</td>
-				<td>{{fr.quantity}} {{fr.unit}}</td>
+				<td ng-show="!editQuantity[fr.id]">{{fr.quantity}} {{fr.unit}}<span ng-if="fr.unit != '' && fr.quantity > 1 && fr.unit !== null && ['g', 'ml'].indexOf(fr.unit) == -1">s</span></td>
+				<td ng-show="editQuantity[fr.id]" style="padding: 4px 8px">
+					<div class="form-inline">
+						<input type="text" class="form-control input-sm add_food_quantity" ng-model="fr.quantity" ng-enter="saveEdit($event, fr)">
+						<a href="#" ng-click="saveEdit($event, fr.id)" style="padding-top: 2px"><span class="glyphicon glyphicon-ok"></span></a>
+					</div>
+				</td>
 				<td>{{fr.calories | noZeroDecimal}}</td>
 				<td>{{fr.proteins | noZeroDecimal}}</td>
 				<td>{{fr.carbohydrates | noZeroDecimal}}</td>
 				<td>{{fr.lipids | noZeroDecimal}}</td>
-				<td style="width: 40px"><a href="#"><span class="glyphicon glyphicon-pencil"></span></td>
+				<td style="width: 40px"><a href="#" ng-click="showEdit($event, fr.id)"><span class="glyphicon glyphicon-pencil"></span></a></td>
 				<td style="width: 40px"><a href="#" ng-click="delete($event, fr.id)"><span class="glyphicon glyphicon-trash"></span></td>
 			</tr>
 			<tr>

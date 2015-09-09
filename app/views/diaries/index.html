@@ -5,7 +5,7 @@
 			<a href="#/{{previousDate | date:'yyyy-MM-dd'}}/diaries" class="btn btn-default">
 				<span class="glyphicon glyphicon-chevron-left"></span>
 			</a>
-			<button type="button" class="btn btn-default">{{date | date:'EEEE dd MMMM'}}</button>
+			<button type="button" class="btn btn-default">{{date | date:'EEEE d MMMM'}}</button>
 			<a href="#/{{nextDate | date:'yyyy-MM-dd'}}/diaries" class="btn btn-default">
 				<span class="glyphicon glyphicon-chevron-right"></span>
 			</a>
@@ -18,7 +18,7 @@
 					Copier depuis date <span class="caret"></span>
 				</button>
 				<ul class="dropdown-menu" role="menu">
-					<li ng-repeat="date in lastDates"><a href="#" ng-click="copyDay($event, date)">{{date | date:'EEEE dd MMMM'}}</a></li>
+					<li ng-repeat="date in lastDates"><a href="#" ng-click="copyDay($event, date)">{{date | date:'EEEE d MMMM'}}</a></li>
 					<li class="divider"></li>
 					<li><a href="#"
 						   datepicker-popup="'yyyy-MM-dd'"
@@ -134,7 +134,7 @@
 				<!-- Foods search and recipes list -->
                 <input type="text" class="form-control input-sm" ng-model="food[mealId]" typeahead="food as food.name for food in foodsList | filter:{name: $viewValue}:autocompleteComparator" ng-show="formAddFood[mealId] == 'food'" placeholder="Aliment" typeahead-on-select="onSelectFood(mealId)" show-focus="focus == ('food' + mealId)">
 
-				<input type="text" class="form-control input-sm" ng-model="recipe[mealId]" typeahead="recipe as recipe.name for recipe in recipes | filter:$viewValue" ng-show="formAddFood[mealId] == 'recipe'" placeholder="Recette" typeahead-on-select="onSelectRecipe(mealId)" show-focus="focus == ('recipe' + mealId)">
+				<input type="text" class="form-control input-sm" ng-model="recipe[mealId]" typeahead="recipe as recipe.name for recipe in recipes | filter:$viewValue:autocompleteComparator" ng-show="formAddFood[mealId] == 'recipe'" placeholder="Recette" typeahead-on-select="onSelectRecipe(mealId)" show-focus="focus == ('recipe' + mealId)">
 			</td>
 			<td>
 				<div class="form-inline" ng-show="formAddFood[mealId] == 'food'">

@@ -107,6 +107,8 @@ angular.module('nutritionApp.recipesControllers', []).
     }
   }]).
   controller('RecipeEditCtrl', ['$scope', '$routeParams', '$location', 'Recipe', 'Food', 'FoodRecipe', function($scope, $routeParams, $location, Recipe, Food, FoodRecipe) {
+    $scope.editQuantity = {};
+
     Recipe.get({id: $routeParams.id}, function(data) {
       $scope.recipe = data;
     });
@@ -129,6 +131,24 @@ angular.module('nutritionApp.recipesControllers', []).
 
       return false;
     }
+
+    $scope.showEdit = function(event, foodRecipeId) {
+      if (event) event.preventDefault();
+
+      $scope.editQuantity[foodRecipeId] = true;
+
+      return false;
+    }
+
+    $scope.saveEdit = function(event, foodRecipe) {
+      if (event) event.preventDefault();
+
+      console.log(foodRecipe)
+
+      foodRecipe.quantity = foodRecipe.quantity.replace(',', '.');
+
+      return false;
+    };
 
     $scope.delete = function(event, id) {
       if (event) event.preventDefault();

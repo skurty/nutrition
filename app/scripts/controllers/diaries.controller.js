@@ -73,7 +73,6 @@ angular.module('nutritionApp.diariesControllers', []).
         if (d.id == diary) {
           d.quantity = d.quantity.replace(',', '.');
           Diary.put({id: d.id, quantity: d.quantity}, function(data) {
-            // console.log(data.diary.calories);
             $scope.diaries[meal][k].quantity      = data.diary.quantity;
             $scope.diaries[meal][k].calories      = data.diary.calories;
             $scope.diaries[meal][k].proteins      = data.diary.proteins;

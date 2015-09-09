@@ -12,7 +12,7 @@ fi
 
 # update / upgrade
 sudo apt-get update
-sudo apt-get -y upgrade
+# sudo apt-get -y upgrade
 
 # install apache 2.5 and php 5.5
 sudo apt-get install -y apache2
@@ -54,34 +54,10 @@ sudo a2enmod rewrite
 
 service apache2 restart
 
-sudo apt-get -y install git vim curl
+sudo apt-get -y install git vim curl capistrano
 
 curl -s https://getcomposer.org/installer | php
 mv composer.phar /usr/local/bin/composer
 
-# configure ws
-sudo chmod 777 "/var/www/${PROJECTFOLDER}/ws/logs"
-
-DATABASECONFIG=$(cat <<EOF
-<?php
-
-$app['debug'] = true;
-
-$app->register(new Silex\Provider\MonologServiceProvider(), array(
-	'monolog.logfile' => __DIR__.'/../../logs/dev.log',
-	'monolog.name'    => 'nutrition'
-));
-
-$app->register(new Silex\Provider\DoctrineServiceProvider(), array(
-	'db.options' => array(
-		'driver'   => 'pdo_mysql',
-		'dbname'   => 'nutrition',
-		'host'     => 'localhost',
-		'user'     => 'root',
-		'password' => '',
-		'charset'  => 'utf8'
-	)
-));
-EOF
-)
-echo "${DATABASECONFIG}" > /var/www/${PROJECTFOLDER}/ws/app/config/prod.php
+cd /var/www/${PROJECTFOLDER}
+composer install

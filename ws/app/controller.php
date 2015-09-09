@@ -33,6 +33,7 @@ $app->get($root . '/recipes.json', 'Skurty\NutritionBundle\Controller\RecipeCont
 $app->get($root . '/recipes/list.json', 'Skurty\NutritionBundle\Controller\RecipeController::listAction');
 $app->post($root . '/recipe.json', 'Skurty\NutritionBundle\Controller\RecipeController::addAction');
 $app->get($root . '/recipe/{id}.json', 'Skurty\NutritionBundle\Controller\RecipeController::viewAction');
+$app->put($root . '/recipe/{id}.json', 'Skurty\NutritionBundle\Controller\RecipeController::editAction');
 $app->delete($root . '/recipe/{id}.json', 'Skurty\NutritionBundle\Controller\RecipeController::deleteAction');
 
 $app->post($root . '/food_recipe.json', 'Skurty\NutritionBundle\Controller\FoodRecipeController::addAction');
