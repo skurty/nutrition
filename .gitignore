@@ -8,3 +8,4 @@ app/lib
 sftp-config.json
 ws/app/config/prod.php
 composer.lock
+servers.yml
