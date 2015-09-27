@@ -70,6 +70,7 @@ angular.module('nutritionApp.foodsControllers', []).
     };
 
     $scope.search = function() {
+      $scope.foods = null;
       $scope.emptyFoodsResults = false;
 
       if (!angular.isUndefined($scope.searchName)) {
