@@ -1,7 +1,3 @@
-node_modules
-dist
-.tmp
-.sass-cache
 .vagrant/
 app/lib
 .idea/

@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('nutritionApp.diariesControllers', []).
-  controller('DiaryListCtrl', ['$scope', '$routeParams', '$filter', 'localStorageService', 'growl', 'Diary', 'Food', 'Recipe', 'String', function($scope, $routeParams, $filter, localStorageService, growl, Diary, Food, Recipe, String) {
+  controller('DiaryListCtrl', ['$scope', '$routeParams', '$filter', 'localStorageService', 'Diary', 'Food', 'Recipe', 'String', function($scope, $routeParams, $filter, localStorageService, Diary, Food, Recipe, String) {
     $scope.meals = {1: 'Petit déjeuner', 2: 'Déjeuner', 3: 'Dîner', 4: 'Collation 1', 5: 'Collation 2', 6: 'Collation 3'};
     $scope.mealsMobile = {1: 'Petit déj\'', 2: 'Déjeuner', 3: 'Dîner', 4: 'Coll 1', 5: 'Coll 2', 6: 'Coll 3'};
 
@@ -111,7 +111,7 @@ angular.module('nutritionApp.diariesControllers', []).
             }
           });
         } else {
-          growl.addErrorMessage('Error lors de la suppression');
+          //growl.addErrorMessage('Error lors de la suppression');
         }
       });
 

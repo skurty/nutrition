@@ -4,7 +4,8 @@
 // Declare app level module which depends on filters, and services
 angular.module('nutritionApp', [
 	'ngRoute',
-	'ngTouch',
+	'ngMaterial',
+	//'ngTouch',
 	'nutritionApp.filters',
 	'nutritionApp.brandsServices',
 	'nutritionApp.commonServices',
@@ -24,22 +25,17 @@ angular.module('nutritionApp', [
 	'nutritionApp.statisticsControllers',
 	'nutritionApp.weightsControllers',
 	'LocalStorageModule',
-	'googlechart',
-	'angular-growl',
+	//'googlechart',
+	//'angular-growl',
 	// 'ngAnimate',
-	'ui.bootstrap',
-  'mgcrea.ngStrap'
+	//'ui.bootstrap',
+  //'mgcrea.ngStrap'
 ]).
-config(['$routeProvider', 'growlProvider', function($routeProvider, growlProvider) {
+config(['$routeProvider', '$mdThemingProvider', function($routeProvider, $mdThemingProvider) {
 	// Detect mobile
 	var _isMobile = (function() {
-    return /iPhone/.test(navigator.userAgent);
-  })();
-
-  // _isMobile = true;
-
-  // Configure growl
-  growlProvider.globalTimeToLive(2000);
+		return /iPhone/.test(navigator.userAgent);
+	  })();
 
 	$routeProvider.when('/diaries', {templateUrl: 'views/diaries/' + ((_isMobile) ? 'm_': '') + 'index.html', controller: 'DiaryListCtrl'});
 	$routeProvider.when('/:date/diaries', {templateUrl: 'views/diaries/index.html', controller: 'DiaryListCtrl'});
