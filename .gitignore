@@ -5,7 +5,7 @@ dist
 .vagrant/
 app/lib
 .idea/
-sftp-config.json
+.ftpconfig
 ws/app/config/prod.php
 composer.lock
 servers.yml

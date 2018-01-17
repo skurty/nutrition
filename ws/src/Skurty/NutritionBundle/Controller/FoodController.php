@@ -14,7 +14,7 @@ class FoodController extends ControllerCore
     public function indexAction(Application $app)
     {
         $repository = new $this->repository($app['db']);
-        
+
         $items = $repository->findAll();
 
         $nbItems = count($items);
@@ -86,7 +86,7 @@ class FoodController extends ControllerCore
         if (isset($params['food'], $params['food']['name'], $params['food']['calories'], $params['food']['proteins'],
             $params['food']['carbohydrates'], $params['food']['lipids'], $params['food']['quantity'], $params['food']['unit'])) {
             $data = $params['food'];
-            
+
             $res = $repository->insert($data);
         } else {
             $res = array('error' => 'Wrong parameters');
@@ -106,7 +106,7 @@ class FoodController extends ControllerCore
         if (isset($params['food'], $params['food']['name'], $params['food']['quantity'], $params['food']['unit'],
             $params['food']['calories'], $params['food']['proteins'], $params['food']['carbohydrates'])) {
             $data = $params['food'];
-            
+
             $res = $repository->update($id, $data);
         } else {
             $res = array('error' => 'Wrong parameters');
@@ -170,7 +170,7 @@ class FoodController extends ControllerCore
     private function curl($url, $post = array())
     {
         $ch = curl_init();
-        
+
         // set url
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
@@ -178,11 +178,11 @@ class FoodController extends ControllerCore
             curl_setopt($ch,CURLOPT_POST, count($post));
             curl_setopt($ch,CURLOPT_POSTFIELDS, $post);
         }
-        
+
         $output = curl_exec($ch);
-        
+
         curl_close($ch);
-        
+
         return $output;
     }
 }

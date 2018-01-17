@@ -149,7 +149,9 @@ angular.module('nutritionApp.diariesControllers', []).
       return false;
     };
 
-    $scope.changeForm = function(type, mealId) {
+    $scope.changeForm = function(type, mealId, event) {
+      if (event) event.preventDefault();
+
       $scope.formAddFood[mealId] = type;
       $scope.focus = type + mealId;
       $scope.quantity[mealId] = null;

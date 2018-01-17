@@ -1,35 +1,30 @@
- <div class="row">
-	<div class="col-sm-4 col-md-4"></div>
-	<div class="col-xs-6 col-sm-4 col-md-4 t-center">
-		<div class="btn-group">
-			<a href="#/{{previousDate | date:'yyyy-MM-dd'}}/diaries" class="btn btn-default">
-				<span class="glyphicon glyphicon-chevron-left"></span>
-			</a>
-			<button type="button" class="btn btn-default">{{date | date:'EEEE d MMMM'}}</button>
-			<a href="#/{{nextDate | date:'yyyy-MM-dd'}}/diaries" class="btn btn-default">
-				<span class="glyphicon glyphicon-chevron-right"></span>
-			</a>
-		</div>
+<div class="col-xs-8 t-center">
+	<div class="btn-group">
+		<a href="#/{{previousDate | date:'yyyy-MM-dd'}}/diaries" class="btn btn-default">
+			<span class="glyphicon glyphicon-chevron-left"></span>
+		</a>
+		<button type="button" class="btn btn-default">{{date | date:'EEEE d MMMM'}}</button>
+		<a href="#/{{nextDate | date:'yyyy-MM-dd'}}/diaries" class="btn btn-default">
+			<span class="glyphicon glyphicon-chevron-right"></span>
+		</a>
 	</div>
-	<div class="col-xs-6 col-sm-4 col-md-4">
-		<div class="f-right">
-			<div class="btn-group" id="btn-copy-day">
-				<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-					Copier depuis date <span class="caret"></span>
-				</button>
-				<ul class="dropdown-menu" role="menu">
-					<li ng-repeat="date in lastDates"><a href="#" ng-click="copyDay($event, date)">{{date | date:'EEEE d MMMM'}}</a></li>
-					<li class="divider"></li>
-					<li><a href="#"
-						   datepicker-popup="'yyyy-MM-dd'"
-						   ng-model="dtCopyDay"
-						   is-open="openDTCopyDay"
-						   show-button-bar="false"
-						   show-weeks="false"
-						   ng-click="showDTCopyDay($event)">Autre</a></li>
-				</ul>
-			</div>
-		</div>
+</div>
+<div class="col-xs-3 t-center">
+	<div class="btn-group" id="btn-copy-day">
+		<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+			Copier <span class="caret"></span>
+		</button>
+		<ul class="dropdown-menu dropdown-menu-right" role="menu">
+			<li ng-repeat="date in lastDates"><a href="#" ng-click="copyDay($event, date)">{{date | date:'EEEE d MMMM'}}</a></li>
+			<li class="divider"></li>
+			<li><a href="#"
+				   datepicker-popup="'yyyy-MM-dd'"
+				   ng-model="dtCopyDay"
+				   is-open="openDTCopyDay"
+				   show-button-bar="false"
+				   show-weeks="false"
+				   ng-click="showDTCopyDay($event)">Autre</a></li>
+		</ul>
 	</div>
 </div>
 
@@ -42,10 +37,10 @@
 	<tbody ng-repeat="(mealId, meal) in meals" class="diaries_body">
 		<!-- Diaries header -->
 		<tr ng-switch on="mealId" class="diaries_header">
-			<td>
+			<td colspan="2">
 				<b>{{meal}}</b>
 			</td>
-			<td>
+			<!-- <td>
 				<div class="btn-group">
 					<button type="button" class="btn btn-default btn-sm" ng-click="copyMeal($event, mealId, previousDate)">Copier hier</button>
 				</div>
@@ -59,12 +54,12 @@
 						<li><a href="#">Autre</a></li>
 					</ul>
 				</div>
-			</td>
-			<td ng-switch-when="1">Quantité</td>
-			<td ng-switch-when="1">Calories</td>
-			<td ng-switch-when="1">Protéines</td>
+			</td> -->
+			<td ng-switch-when="1">Q</td>
+			<td ng-switch-when="1">C</td>
+			<!-- <td ng-switch-when="1">Protéines</td>
 			<td ng-switch-when="1">Glucides</td>
-			<td ng-switch-when="1">Lipides</td>
+			<td ng-switch-when="1">Lipides</td> -->
 		</tr>
 
 		<!-- Diaries lines -->
@@ -79,9 +74,9 @@
 				</div>
 			</td>
 			<td>{{Math.round(d.calories) | noZeroDecimal}}</td>
-			<td>{{Math.round(d.proteins) | noZeroDecimal}}</td>
+			<!-- <td>{{Math.round(d.proteins) | noZeroDecimal}}</td>
 			<td>{{Math.round(d.carbohydrates) | noZeroDecimal}}</td>
-			<td>{{Math.round(d.lipids) | noZeroDecimal}}</td>
+			<td>{{Math.round(d.lipids) | noZeroDecimal}}</td> -->
 			<td class="diary_action">
 				<div class="btn-group">
 					<a class="dropdown-toggle" data-toggle="dropdown" class="pointer">
@@ -118,17 +113,19 @@
 		<!-- Total meal -->
 		<tr class="line_total">
 			<td class="line_total_td">
-				<div class="btn-group btn-group-sm">
-					<button type="button" class="btn btn-default ng-class: {active: formAddFood[mealId] == 'food'}" ng-click="changeForm('food', mealId)" title="Aliments">
-						<span class="glyphicon glyphicon-list"></span>
-					</button>
-					<button type="button" class="btn btn-default ng-class: {active: formAddFood[mealId] == 'recipe'}" ng-click="changeForm('recipe', mealId)" title="Recettes">
-						<span class="glyphicon glyphicon-cutlery"></span>
-					</button>
-					<button type="button" class="btn btn-default ng-class: {active: formAddFood[mealId] == 'manual'}" ng-click="changeForm('manual', mealId)" title="Ajout manuel">
-						<span class="glyphicon glyphicon-wrench"></span>
-					</button>
-				</div>
+                <div class="btn-group">
+            		<button type="button" class="btn btn-sm btn-default dropdown-toggle" data-toggle="dropdown">
+            			<span ng-if="formAddFood[mealId] == 'food'" class="glyphicon glyphicon-list"></span>
+            			<span ng-if="formAddFood[mealId] == 'recipe'" class="glyphicon glyphicon-cutlery"></span>
+            			<span ng-if="formAddFood[mealId] == 'manual'" class="glyphicon glyphicon-wrench"></span>
+                        <span class="caret"></span>
+            		</button>
+            		<ul class="dropdown-menu" role="menu">
+                        <li><a href="#" ng-click="changeForm('food', mealId, $event)">Aliments</li>
+                        <li><a href="#" ng-click="changeForm('recipe', mealId, $event)">Recettes</li>
+                        <li><a href="#" ng-click="changeForm('manual', mealId, $event)">Manuel</li>
+            		</ul>
+            	</div>
 			</td>
 			<td>
 				<!-- Foods search and recipes list -->
@@ -147,9 +144,9 @@
 				</div>
 			</td>
 			<td>{{totalMeals[mealId].calories | noZeroDecimal}}</td>
-			<td>{{totalMeals[mealId].proteins | noZeroDecimal}}</td>
+			<!-- <td>{{totalMeals[mealId].proteins | noZeroDecimal}}</td>
 			<td>{{totalMeals[mealId].carbohydrates | noZeroDecimal}}</td>
-			<td>{{totalMeals[mealId].lipids | noZeroDecimal}}</td>
+			<td>{{totalMeals[mealId].lipids | noZeroDecimal}}</td> -->
 			<td></td>
 			<td></td>
 			<td></td>
@@ -162,28 +159,31 @@
 			<td colspan="2"></td>
 			<td>Total</td>
 			<td>{{total.calories}}</td>
-			<td>{{total.proteins}}</td>
+			<!-- <td>{{total.proteins}}</td>
 			<td>{{total.carbohydrates}}</td>
 			<td>{{total.lipids}}</td>
-			<td colspan="3"></td>
+			<td colspan="3"></td> -->
+            <td colspan="6"></td>
 		</tr>
 		<tr>
 			<td colspan="2"></td>
 			<td>Objectifs</td>
 			<td>{{goal.calories | noZeroDecimal}}</td>
-			<td>{{goal.proteins | noZeroDecimal}}</td>
+			<!-- <td>{{goal.proteins | noZeroDecimal}}</td>
 			<td>{{goal.carbohydrates | noZeroDecimal}}</td>
 			<td>{{goal.lipids | noZeroDecimal}}</td>
-			<td colspan="3"></td>
+			<td colspan="3"></td> -->
+            <td colspan="6"></td>
 		</tr>
 		<tr>
 			<td colspan="2"></td>
 			<td>Restant</td>
 			<td>{{goal.calories - total.calories}}</td>
-			<td>{{goal.proteins - total.proteins}}</td>
+			<!-- <td>{{goal.proteins - total.proteins}}</td>
 			<td>{{goal.carbohydrates - total.carbohydrates}}</td>
 			<td>{{goal.lipids - total.lipids}}</td>
-			<td colspan="3"></td>
+			<td colspan="3"></td> -->
+            <td colspan="6"></td>
 		</tr>
 	</tbody>
 </table>

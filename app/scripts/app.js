@@ -33,26 +33,25 @@ angular.module('nutritionApp', [
 config(['$routeProvider', 'growlProvider', function($routeProvider, growlProvider) {
 	// Detect mobile
 	var _isMobile = (function() {
-    return /iPhone/.test(navigator.userAgent);
-  })();
+		return /Android|BlackBerry|iPhone|iPad|iPod|Opera Mini|IEMobile/i.test(navigator.userAgent);
+	})();
 
-  // _isMobile = true;
+	// Configure growl
+  	growlProvider.globalTimeToLive(2000);
 
-  // Configure growl
-  growlProvider.globalTimeToLive(2000);
-
-	$routeProvider.when('/diaries', {templateUrl: 'views/diaries/' + ((_isMobile) ? 'm_': '') + 'index.html', controller: 'DiaryListCtrl'});
-	$routeProvider.when('/:date/diaries', {templateUrl: 'views/diaries/index.html', controller: 'DiaryListCtrl'});
+	var mobilePrefix = ((_isMobile) ? 'm_': '');
+	$routeProvider.when('/diaries', {templateUrl: 'views/diaries/' + mobilePrefix + 'index.html', controller: 'DiaryListCtrl'});
+	$routeProvider.when('/:date/diaries', {templateUrl: 'views/diaries/' + mobilePrefix + 'index.html', controller: 'DiaryListCtrl'});
 	$routeProvider.when('/diaries/:date/:meal/add', {templateUrl: 'views/diaries/add.html', controller: 'DiaryAddCtrl'});
-	$routeProvider.when('/foods', {templateUrl: 'views/foods/' + ((_isMobile) ? 'm_': '') + 'index.html', controller: 'FoodListCtrl'});
+	$routeProvider.when('/foods', {templateUrl: 'views/foods/' + mobilePrefix + 'index.html', controller: 'FoodListCtrl'});
 	$routeProvider.when('/foods/add', {templateUrl: 'views/foods/add.html', controller: 'FoodAddCtrl'});
 	$routeProvider.when('/foods/:id/edit', {templateUrl: 'views/foods/edit.html', controller: 'FoodEditCtrl'});
 	$routeProvider.when('/brands/add', {templateUrl: 'views/brands/add.html', controller: 'BrandAddCtrl'});
-	$routeProvider.when('/recipes', {templateUrl: 'views/recipes/' + ((_isMobile) ? 'm_': '') + 'index.html', controller: 'RecipeListCtrl'});
+	$routeProvider.when('/recipes', {templateUrl: 'views/recipes/' + mobilePrefix + 'index.html', controller: 'RecipeListCtrl'});
 	$routeProvider.when('/recipes/add', {templateUrl: 'views/recipes/add.html', controller: 'RecipeAddCtrl'});
 	$routeProvider.when('/recipes/:id/view', {templateUrl: 'views/recipes/view.html', controller: 'RecipeViewCtrl'});
 	$routeProvider.when('/recipes/:id/edit', {templateUrl: 'views/recipes/edit.html', controller: 'RecipeEditCtrl'});
-	$routeProvider.when('/goals', {templateUrl: 'views/goals/index.html', controller: 'GoalListCtrl'});
+	$routeProvider.when('/goals', {templateUrl: 'views/goals/' + mobilePrefix + 'index.html', controller: 'GoalListCtrl'});
 	$routeProvider.when('/goals/add', {templateUrl: 'views/goals/add.html', controller: 'GoalAddCtrl'});
 	$routeProvider.when('/goals/:id/edit', {templateUrl: 'views/goals/edit.html', controller: 'GoalEditCtrl'});
 	$routeProvider.when('/statistics', {templateUrl: 'views/statistics/index.html', controller: 'StatisticListCtrl'});
